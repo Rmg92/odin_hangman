@@ -2,6 +2,10 @@
 
 # Contains the game logic
 class Game
+  def initialize
+    @word = choose_word
+  end
+
   def choose_word
     word = load_dictionary[rand(load_dictionary.length)]
     if word.length.between?(5, 12)
@@ -21,6 +25,6 @@ class Game
   end
 
   def play
-    puts choose_word
+    puts @word
   end
 end
