@@ -2,8 +2,15 @@
 
 # Contains the game logic
 class Game
-  def initialize
+  def play
+    new_game
+    p @word, @right_guesses, @wrong_guesses
+  end
+
+  def new_game
     @word = choose_word
+    @right_guesses = []
+    @wrong_guesses = []
   end
 
   def choose_word
@@ -22,9 +29,5 @@ class Game
       puts 'Dictionary file was not found!'
       exit
     end
-  end
-
-  def play
-    puts @word
   end
 end
