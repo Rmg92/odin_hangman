@@ -4,35 +4,44 @@
 class Game
   def play
     new_game
-    play_round while @round < 9
+    play_round while @wrong_guesses.length < 8
   end
 
   def new_game
     @word = choose_word
+    # code for debug purposes, erase when not needed
     puts @word
     @right_guesses = []
     @wrong_guesses = []
-    @round = 1
   end
 
   def play_round
-    choose_guess
-    # code to debug
+    input = player_input
+    correct_guess?(input)
+    # code to debug, erase when not needed
     p @right_guesses, @wrong_guesses
-    @round += 1
   end
 
-  def choose_guess
-    guess = gets.chomp
-    # Add check for wrong inputs
-    if guess.length > 1
-      check_word(guess)
+  def player_input
+    input = gets.chomp.downcase
+    if input.empty?
+      puts 'Invalid input!'
+      player_input
     else
-      check_letter(guess)
+      input
     end
   end
 
-  def check_letter(guess)
+  def correct_guess?(guess)
+    # Add check for wrong inputs
+    if guess.length > 1
+      correct_word?(guess)
+    else
+      correct_letter?(guess)
+    end
+  end
+
+  def correct_letter?(guess)
     if @word.include?(guess)
       @right_guesses << guess
     else
@@ -40,10 +49,12 @@ class Game
     end
   end
 
-  def check_word(guess)
+  def correct_word?(guess)
     if @word.eql?(guess)
       puts 'You won!'
       exit
+    else
+      @wrong_guesses << guess
     end
   end
 
