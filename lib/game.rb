@@ -4,14 +4,16 @@
 class Game
   def play
     new_game
+    p @right_guesses.join(' ')
     play_round while @wrong_guesses.length < 8
+    puts @word.join
   end
 
   def new_game
-    @word = choose_word
+    @word = choose_word.split('')
     # code for debug purposes, erase when not needed
-    puts @word
-    @right_guesses = []
+    # puts @word.join
+    @right_guesses = Array.new(@word.length, '_')
     @wrong_guesses = []
   end
 
@@ -19,7 +21,7 @@ class Game
     input = player_input
     correct_guess?(input)
     # code to debug, erase when not needed
-    p @right_guesses, @wrong_guesses
+    p @right_guesses.join(' '), @wrong_guesses.join(' ')
   end
 
   def player_input
@@ -35,7 +37,7 @@ class Game
   def correct_guess?(guess)
     # Add check for wrong inputs
     if guess.length > 1
-      correct_word?(guess)
+      correct_word?(guess.split(''))
     else
       correct_letter?(guess)
     end
@@ -43,19 +45,25 @@ class Game
 
   def correct_letter?(guess)
     if @word.include?(guess)
-      @right_guesses << guess
+      correct_position(guess)
     else
       @wrong_guesses << guess
     end
   end
 
-  def correct_word?(guess)
-    if @word.eql?(guess)
-      puts 'You won!'
-      exit
-    else
-      @wrong_guesses << guess
+  def correct_position(guess)
+    @word.each_index do |index|
+      @right_guesses[index] = guess if @word[index].eql?(guess)
     end
+    correct_word?(@right_guesses)
+  end
+
+  def correct_word?(guess)
+    return unless @word.eql?(guess)
+
+    puts @word.join
+    puts 'You won!'
+    exit
   end
 
   def choose_word
