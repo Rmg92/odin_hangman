@@ -11,18 +11,21 @@ class Game
     @right_guesses = Array.new(@word.length, '_')
     @wrong_guesses = []
     @remaining_guesses = 8
+    @game_end = false
     play
   end
 
   def play
-    puts display_rules, display_game_start
-    play_round until @remaining_guesses.zero?
-    puts @word.join
+    display_rules
+    display_game_start
+    play_round until @game_end
+    display_result
   end
 
   def play_round
     input = player_input
     check_guess(input)
+    @game_end = true if correct_word?(@right_guesses) || @remaining_guesses.zero?
     puts display_round
   end
 
@@ -39,8 +42,7 @@ class Game
   def check_guess(guess)
     # Add check for wrong inputs
     if guess.length > 1 && correct_word?(guess.split(''))
-      puts @word.join
-      puts 'You won!'
+      @game_end = true
     elsif guess.length.eql?(1) && correct_letter?(guess)
       correct_position(guess)
     else
