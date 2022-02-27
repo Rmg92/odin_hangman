@@ -10,7 +10,7 @@ To win you must guess all the letters in the word or the complete word before us
   end
 
   def display_game_start
-    puts "The secret word as been chosen, you can start guessing!
+    puts "The secret word has been chosen, you can start guessing!
 Secret Word ->  #{@right_guesses.join(' ')}\n
 "
   end

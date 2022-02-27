@@ -26,16 +26,16 @@ class Game
     input = player_input
     check_guess(input)
     @game_end = true if correct_word?(@right_guesses) || @remaining_guesses.zero?
-    puts display_round
+    display_round
   end
 
   def player_input
     input = gets.chomp.downcase
-    if input.empty?
+    if valid_input?(input)
+      input
+    else
       puts 'Invalid input!'
       player_input
-    else
-      input
     end
   end
 
@@ -63,6 +63,12 @@ class Game
     @word.each_index do |index|
       @right_guesses[index] = guess if @word[index].eql?(guess)
     end
+  end
+
+  def valid_input?(input)
+    valid = true
+    input.each_char { |char| valid = false unless char.match?(/[a-z]/) }
+    valid
   end
 
   def choose_word
