@@ -17,7 +17,8 @@ Secret Word ->  #{@right_guesses.join(' ')}\n
 
   def display_round
     "Secret Word ->  #{@right_guesses.join(' ')}
-Wrong Guesses ->  #{@wrong_guesses.join(' ')}\n
+Wrong Guesses ->  #{@wrong_guesses.join(' ')}
+Remaining Guesses: #{@remaining_guesses}\n
 "
   end
 end

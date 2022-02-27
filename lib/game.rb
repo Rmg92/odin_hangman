@@ -24,7 +24,6 @@ class Game
     input = player_input
     check_guess(input)
     puts display_round
-    puts @remaining_guesses
   end
 
   def player_input
