@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
+require_relative 'display'
+
 # Contains the game logic
 class Game
-  def play
-    new_game
-    p @right_guesses.join(' ')
-    play_round while @wrong_guesses.length < 8
-    puts @word.join
-  end
+  include Display
 
-  def new_game
+  def initialize
     @word = choose_word.split('')
-    # code for debug purposes, erase when not needed
-    # puts @word.join
     @right_guesses = Array.new(@word.length, '_')
     @wrong_guesses = []
+    play
+  end
+
+  def play
+    puts display_rules, display_game_start
+    play_round while @wrong_guesses.length < 8
+    puts @word.join
   end
 
   def play_round
