@@ -23,7 +23,7 @@ class Game
     input = player_input
     correct_guess?(input)
     # code to debug, erase when not needed
-    p @right_guesses.join(' '), @wrong_guesses.join(' ')
+    puts display_round
   end
 
   def player_input
