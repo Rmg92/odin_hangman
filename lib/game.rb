@@ -19,6 +19,7 @@ class Game
     display_game_start
     play_round until @game_end
     display_result
+    play_again
   end
 
   def play_round
@@ -67,6 +68,11 @@ class Game
     valid = true
     input.each_char { |char| valid = false unless char.match?(/[a-z]/) }
     valid
+  end
+
+  def play_again
+    display_play_again
+    Game.new if gets.chomp.to_i.eql?(1)
   end
 
   def choose_word
