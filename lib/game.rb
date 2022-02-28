@@ -33,7 +33,7 @@ class Game
     if valid_input?(input)
       input
     else
-      puts 'Invalid input!'
+      display_invalid_input
       player_input
     end
   end

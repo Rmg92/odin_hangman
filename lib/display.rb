@@ -28,6 +28,10 @@ Remaining Guesses: #{@remaining_guesses}\n
 Input 1 to play again or anything else to exit!'
   end
 
+  def display_invalid_input
+    puts 'Invalid Input!'
+  end
+
   def display_result
     if @remaining_guesses.zero?
       puts "Too bad, the secret word was #{@word.join}, you lost the game."
