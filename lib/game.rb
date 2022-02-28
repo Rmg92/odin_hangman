@@ -11,7 +11,7 @@ class Game
     @right_guesses = Array.new(@word.length, '_')
     @wrong_guesses = []
     @remaining_guesses = 8
-    @game_end = false
+    @game_end = true
     play
   end
 
@@ -23,8 +23,7 @@ class Game
   end
 
   def play_round
-    input = player_input
-    check_guess(input)
+    check_guess(player_input)
     @game_end = true if correct_word?(@right_guesses) || @remaining_guesses.zero?
     display_round
   end
