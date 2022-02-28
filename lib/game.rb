@@ -11,7 +11,6 @@ class Game
     @right_guesses = Array.new(@word.length, '_')
     @wrong_guesses = []
     @remaining_guesses = 8
-    @game_end = true
     play
   end
 
