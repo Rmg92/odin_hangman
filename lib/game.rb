@@ -23,6 +23,7 @@ class Game
   end
 
   def play_round
+    puts save_game?
     check_guess(player_input)
     @game_end = true if correct_word?(@right_guesses) || @remaining_guesses.zero?
     display_round
@@ -39,7 +40,6 @@ class Game
   end
 
   def check_guess(guess)
-    # Add check for wrong inputs
     if guess.length > 1 && correct_word?(guess.split(''))
       @game_end = true
     elsif guess.length.eql?(1) && correct_letter?(guess)
@@ -82,6 +82,11 @@ class Game
     else
       choose_word
     end
+  end
+
+  def save_game?
+    puts 'Input 1 to save your game and exit, input anything else to continue'
+    false unless gets.chomp.to_i.eql?(1)
   end
 
   def load_dictionary
