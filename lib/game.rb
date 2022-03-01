@@ -66,6 +66,7 @@ class Game
 
   def valid_input?(input)
     valid = true
+    valid = false if input.length.eql?(1) && @wrong_guesses.include?(input)
     input.each_char { |char| valid = false unless char.match?(/[a-z]/) }
     valid
   end
