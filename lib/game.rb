@@ -23,15 +23,17 @@ class Game
   end
 
   def play_round
-    puts save_game?
     check_guess(player_input)
     @game_end = true if correct_word?(@right_guesses) || @remaining_guesses.zero?
     display_round
   end
 
   def player_input
+    puts 'Input 1 to save your game and exit, input a letter or word to guess'
     input = gets.chomp.downcase
-    if valid_input?(input)
+    if input.to_i.eql?(1)
+      save_game
+    elsif valid_input?(input)
       input
     else
       display_invalid_input
@@ -84,9 +86,16 @@ class Game
     end
   end
 
-  def save_game?
-    puts 'Input 1 to save your game and exit, input anything else to continue'
-    false unless gets.chomp.to_i.eql?(1)
+  def save_game
+    # save game method
+    # check if save folder exists
+    Dir.mkdir('./saved_games') unless Dir.exist?('./saved_games')
+    filename = "./saved_games/#{choose_word}_#{choose_word}.yaml"
+    File.open(filename, 'w')
+    #   create save folde if it doesn't exist
+    # create and yaml file
+    # serialize the game object to it
+    exit
   end
 
   def load_dictionary
