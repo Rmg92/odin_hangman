@@ -1,0 +1,24 @@
+---
+- !ruby/object:Game
+  word:
+  - r
+  - e
+  - a
+  - c
+  - h
+  - i
+  - "n"
+  - g
+  right_guesses:
+  - _
+  - e
+  - a
+  - _
+  - _
+  - i
+  - _
+  - _
+  wrong_guesses:
+  - o
+  - u
+  remaining_guesses: 6
