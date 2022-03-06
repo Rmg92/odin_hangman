@@ -102,6 +102,10 @@ class Game
     Dir.glob('**', base: './saved_games').each { |file| save_list << file.to_s }
     save_list.each_with_index { |file, index| puts "#{index}: #{file}" }
     save_game = YAML.load_file("./saved_games/#{save_list[gets.to_i]}", permitted_classes: [Game])
+    load_saved_variables(save_game)
+  end
+
+  def load_saved_variables(save_game)
     @word = save_game[0].instance_variable_get('@word')
     @right_guesses = save_game[0].instance_variable_get('@right_guesses')
     @wrong_guesses = save_game[0].instance_variable_get('@wrong_guesses')
