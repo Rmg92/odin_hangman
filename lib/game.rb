@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'display'
+require 'yaml'
 
 # Contains the game logic
 class Game
@@ -16,6 +17,7 @@ class Game
 
   def play
     display_rules
+    load_game if gets.chomp.to_i.eql?(1)
     display_game_start
     play_round until @game_end
     display_result
@@ -29,8 +31,11 @@ class Game
   end
 
   def player_input
+    puts 'Input 1 to save your game and exit, input a letter or word to make a guess'
     input = gets.chomp.downcase
-    if valid_input?(input)
+    if input.to_i.eql?(1)
+      save_game
+    elsif valid_input?(input)
       input
     else
       display_invalid_input
@@ -39,7 +44,6 @@ class Game
   end
 
   def check_guess(guess)
-    # Add check for wrong inputs
     if guess.length > 1 && correct_word?(guess.split(''))
       @game_end = true
     elsif guess.length.eql?(1) && correct_letter?(guess)
@@ -83,6 +87,30 @@ class Game
     else
       choose_word
     end
+  end
+
+  def save_game
+    Dir.mkdir('./saved_games') unless Dir.exist?('./saved_games')
+    filename = "./saved_games/#{choose_word}_#{choose_word}.yaml"
+    File.open(filename, 'w') { |file| YAML.dump([] << self, file) }
+    puts 'Game Saved. Goodbye!'
+    exit
+  end
+
+  def load_game
+    puts 'Wich game do you want to load?'
+    save_list = []
+    Dir.glob('**', base: './saved_games').each { |file| save_list << file.to_s }
+    save_list.each_with_index { |file, index| puts "#{index}: #{file}" }
+    save_game = YAML.load_file("./saved_games/#{save_list[gets.to_i]}", permitted_classes: [Game])
+    load_saved_variables(save_game)
+  end
+
+  def load_saved_variables(save_game)
+    @word = save_game[0].instance_variable_get('@word')
+    @right_guesses = save_game[0].instance_variable_get('@right_guesses')
+    @wrong_guesses = save_game[0].instance_variable_get('@wrong_guesses')
+    @remaining_guesses = save_game[0].instance_variable_get('@remaining_guesses')
   end
 
   def load_dictionary

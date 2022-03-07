@@ -1,0 +1,16 @@
+---
+- !ruby/object:Game
+  word:
+  - j
+  - e
+  - s
+  - u
+  - s
+  right_guesses:
+  - _
+  - _
+  - _
+  - _
+  - _
+  wrong_guesses: []
+  remaining_guesses: 8

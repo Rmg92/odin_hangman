@@ -6,6 +6,7 @@ module Display
     puts "
 A random english word with 5 to 12 letters will be chosen, on each turn you can guess one letter or the complete word.
 To win you must guess all the letters in the word or the complete word before using 8 incorrect guesses!\n
+Input 1 if you want to load a saved game, anything else to play a new game.
 "
   end
 
